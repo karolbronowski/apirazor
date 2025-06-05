@@ -1,13 +1,12 @@
-﻿using MediatR;
+﻿using FinalLabProject.Domain.Common;
+using FinalLabProject.Domain.Entities;
 
 namespace FinalLabProject.Domain.Events.Song;
 
-public class SongUpdatedEvent : BaseEvent
+public class SongUpdatedEvent : EntityEvent<Song>
 {
-    public int SongId { get; }
-
-    public SongUpdatedEvent(int songId)
+    public SongUpdatedEvent(Song song)
+        : base(song, EntityEventType.Updated)
     {
-        SongId = songId;
     }
 }

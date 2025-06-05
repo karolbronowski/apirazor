@@ -1,13 +1,12 @@
-﻿﻿using MediatR;
+﻿﻿using FinalLabProject.Domain.Common;
+using FinalLabProject.Domain.Entities;
 
 namespace FinalLabProject.Domain.Events.Artist;
 
-public class ArtistCreatedEvent : BaseEvent
+public class ArtistCreatedEvent : EntityEvent<Artist>
 {
-    public int ArtistId { get; }
-
-    public ArtistCreatedEvent(int artistId)
+    public ArtistCreatedEvent(Artist artist)
+        : base(artist, EntityEventType.Created)
     {
-        ArtistId = artistId;
     }
 }

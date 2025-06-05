@@ -1,13 +1,12 @@
-﻿using MediatR;
+﻿using FinalLabProject.Domain.Common;
+using FinalLabProject.Domain.Entities;
 
 namespace FinalLabProject.Domain.Events.Listener;
 
-public class ListenerUpdatedEvent : BaseEvent
+public class ListenerUpdatedEvent : EntityEvent<Listener>
 {
-    public int ListenerId { get; }
-
-    public ListenerUpdatedEvent(int listenerId)
+    public ListenerUpdatedEvent(Listener listener)
+        : base(listener, EntityEventType.Updated)
     {
-        ListenerId = listenerId;
     }
 }
