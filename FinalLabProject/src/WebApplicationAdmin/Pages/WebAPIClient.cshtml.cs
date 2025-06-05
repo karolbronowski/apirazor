@@ -41,7 +41,7 @@ namespace WebApplicationAdmin.Pages
             var request1 = new RestRequest($"api/{this.UsersUrl}/register", Method.Post);
             request1.AddHeader("content-type", "application/json");
             request1.AddJsonBody(new { email = "test@wsei.edu.pl", password = "StrongPass123$%^" });
-            var response1 = client1.Execute(request1);
+            var response1 = client1.Execute<RestRequest>(request1);
 
             var client2 = new RestClient($"https://{this._webAPIconfig.Value.Host}:{this._webAPIconfig.Value.Port}");
             var request2 = new RestRequest($"api/{this.UsersUrl}/login", Method.Post);
