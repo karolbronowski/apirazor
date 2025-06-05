@@ -1,7 +1,7 @@
 using AutoMapper;
 using FinalLabProject.Domain.Entities;
 
-namespace FinalLabProject.Application.Songs.Queries.GetSongsWithPagination;
+namespace FinalLabProject.Application.Songs.Queries;
 
 public class SongDto
 {
