@@ -1,6 +1,6 @@
 using FinalLabProject.Application.Common.Interfaces;
 using FinalLabProject.Domain.Entities;
-using FinalLabProject.Domain.Events.Artist;
+using FinalLabProject.Domain.Events.ArtistEvents;
 using MediatR;
 
 namespace FinalLabProject.Application.Artists.Commands.DeleteArtist;

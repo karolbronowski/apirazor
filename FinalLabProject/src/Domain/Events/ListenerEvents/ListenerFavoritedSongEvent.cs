@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace FinalLabProject.Domain.Events.Listener;
+namespace FinalLabProject.Domain.Events.ListenerEvents;
 
 public class ListenerFavoritedSongEvent : BaseEvent
 {

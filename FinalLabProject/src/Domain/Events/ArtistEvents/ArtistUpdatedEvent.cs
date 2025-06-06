@@ -1,7 +1,7 @@
 ﻿using FinalLabProject.Domain.Common;
 using FinalLabProject.Domain.Entities;
 
-namespace FinalLabProject.Domain.Events.Artist;
+namespace FinalLabProject.Domain.Events.ArtistEvents;
 
 public class ArtistUpdatedEvent : EntityEvent<Artist>
 {

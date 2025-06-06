@@ -1,4 +1,4 @@
-using FinalLabProject.Domain.Events.Artist;
+using FinalLabProject.Domain.Events.ArtistEvents;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
@@ -16,10 +16,10 @@ public class ArtistUpdatedEventHandler : INotificationHandler<ArtistUpdatedEvent
     public Task Handle(ArtistUpdatedEvent notification, CancellationToken cancellationToken)
     {
         _logger.LogInformation(
-            "Artist updated: ArtistId={ArtistId}, Name={Name}, UserName={UserName}",
+            "Artist updated: ArtistId={ArtistId}, Name={Name}, Username={Username}",
             notification.Entity.Id,
             notification.Entity.Name,
-            notification.Entity.UserName
+            notification.Entity.Username
         );
         return Task.CompletedTask;
     }

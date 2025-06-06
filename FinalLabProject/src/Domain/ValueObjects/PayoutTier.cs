@@ -6,12 +6,24 @@ namespace FinalLabProject.Domain.ValueObjects;
 
 public sealed class PayoutTier : ValueObject
 {
-    public int Tier { get; }
-    public int ClickThreshold { get; }
+    public int Tier { get; private set; }
+    public int ClickThreshold { get; private set; }
+
+    // EF Core requires a parameterless constructor
+    private PayoutTier() { }
 
     public static readonly PayoutTier Bronze = new(1, 0);
     public static readonly PayoutTier Silver = new(2, 10_000);
     public static readonly PayoutTier Gold = new(3, 100_000);
+
+    public string Name => ToString();
+
+    public PayoutTier(string tier)
+    {
+        var instance = FromString(tier);
+        Tier = instance.Tier;
+        ClickThreshold = instance.ClickThreshold;
+    }
 
     public static PayoutTier FromClicks(int clicks)
     {
@@ -20,6 +32,17 @@ public sealed class PayoutTier : ValueObject
         if (clicks >= Silver.ClickThreshold)
             return Silver;
         return Bronze;
+    }
+
+    public static PayoutTier FromString(string tier)
+    {
+        return tier switch
+        {
+            "Bronze" => Bronze,
+            "Silver" => Silver,
+            "Gold" => Gold,
+            _ => throw new ArgumentException($"Invalid payout tier: {tier}")
+        };
     }
 
     private PayoutTier(int tier, int threshold)

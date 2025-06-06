@@ -1,4 +1,4 @@
-using FinalLabProject.Domain.Events.Listener;
+using FinalLabProject.Domain.Events.ListenerEvents;
 using MediatR;
 using Microsoft.Extensions.Logging;
 

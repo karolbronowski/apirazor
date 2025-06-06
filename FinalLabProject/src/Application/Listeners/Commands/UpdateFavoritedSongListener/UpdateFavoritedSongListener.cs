@@ -1,5 +1,8 @@
 using FinalLabProject.Application.Common.Interfaces;
 using FinalLabProject.Domain.Entities;
+using FinalLabProject.Domain.Exceptions.SongExceptions;
+using FinalLabProject.Domain.Events.ListenerEvents;
+using FinalLabProject.Domain.Exceptions.ListenerExceptions;
 using MediatR;
 
 namespace FinalLabProject.Application.Listeners.Commands.UpdateFavoritedSongListener;
@@ -20,13 +23,13 @@ public class UpdateFavoritedSongListenerCommandHandler : IRequestHandler<UpdateF
         var listener = await _context.Listeners
             .FindAsync(new object[] { request.ListenerId }, cancellationToken);
             
-        if (!listener)
-          throw new ListenerNotFoundException(request.Id);
+        if (listener == null)
+          throw new ListenerNotFoundException(request.ListenerId);
 
         var song = await _context.Songs
             .FindAsync(new object[] { request.SongId }, cancellationToken);
 
-        if( !song)
+        if(song == null)
           throw new SongNotFoundException(request.SongId);
 
         if (request.IsFavorited)

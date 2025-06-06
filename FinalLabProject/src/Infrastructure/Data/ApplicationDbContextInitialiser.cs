@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using FinalLabProject.Domain.ValueObjects;
 
 namespace FinalLabProject.Infrastructure.Data;
 
@@ -125,7 +126,7 @@ public class ApplicationDbContextInitialiser
                     Username = new Username("testartist"),
                     Email = new EmailAddress("artist@example.com"),
                     Bio = "A test artist.",
-                    PayoutTier = new PayoutTier { Tier = "Standard" }
+                    PayoutTier = new PayoutTier("Bronze")
                 };
                 _context.Artists.Add(artist);
                 await _context.SaveChangesAsync();

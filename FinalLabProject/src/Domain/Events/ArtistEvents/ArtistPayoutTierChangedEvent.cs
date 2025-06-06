@@ -2,7 +2,7 @@ using FinalLabProject.Domain.Common;
 using FinalLabProject.Domain.Entities;
 using FinalLabProject.Domain.ValueObjects;
 
-namespace FinalLabProject.Domain.Events.Artist;
+namespace FinalLabProject.Domain.Events.ArtistEvents;
 
 public class ArtistPayoutTierChangedEvent : BaseEvent
 {

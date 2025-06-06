@@ -1,7 +1,9 @@
 using FinalLabProject.Application.Common.Interfaces;
 using FinalLabProject.Domain.Entities;
-using FinalLabProject.Domain.Events.Artist;
+using FinalLabProject.Domain.Events.ArtistEvents;
+using FinalLabProject.Domain.Exceptions.Common;
 using FinalLabProject.Domain.ValueObjects;
+using FinalLabProject.Domain.Enums;
 using MediatR;
 
 namespace FinalLabProject.Application.Artists.Commands.CreateArtist;
@@ -10,10 +12,10 @@ public record CreateArtistCommand : IRequest<int>
 {
     public string UserId { get; init; } = default!;
     public string Name { get; init; } = default!;
-    public Username UserName { get; init; } = default!;
-    public EmailAddress Email { get; init; } = default!;
+    public string Username { get; init; } = default!;
+    public string Email { get; init; } = default!;
     public string Bio { get; init; } = string.Empty;
-    public PayoutTier PayoutTier { get; init; } = default!;
+    public string PayoutTier { get; init; } = default!;
 }
 
 public class CreateArtistCommandHandler : IRequestHandler<CreateArtistCommand, int>
@@ -31,13 +33,13 @@ public class CreateArtistCommandHandler : IRequestHandler<CreateArtistCommand, i
         {
             UserId = request.UserId,
             Name = request.Name,
-            UserName = new Domain.ValueObjects.Username(request.UserName),
-            Email = new Domain.ValueObjects.EmailAdress(request.Email),
+            Username = new Domain.ValueObjects.Username(request.Username),
+            Email = new Domain.ValueObjects.EmailAddress(request.Email),
             Bio = request.Bio,
             PayoutTier = new Domain.ValueObjects.PayoutTier(request.PayoutTier),
         };
-        if (_context.Artists.Any(a => a.UserName == entity.UserName))
-            throw new UserAlreadyExistsException(request.UserName, UserType.Artist);
+        if (_context.Artists.Any(a => a.Username == entity.Username))
+            throw new UserAlreadyExistsException(request.Username, UserType.Artist);
 
         entity.AddDomainEvent(new ArtistCreatedEvent(entity));
 

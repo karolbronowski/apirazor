@@ -1,5 +1,6 @@
 using FinalLabProject.Application.Common.Interfaces;
 using FinalLabProject.Domain.Entities;
+using FinalLabProject.Domain.Exceptions.ListenerExceptions;
 using MediatR;
 
 namespace FinalLabProject.Application.Listeners.Commands.UpdateListener;
@@ -23,7 +24,7 @@ public class UpdateListenerCommandHandler : IRequestHandler<UpdateListenerComman
     {
         var entity = await _context.Listeners.FindAsync(new object[] { request.Id }, cancellationToken);
 
-        if (!entity)
+        if (entity == null)
             throw new ListenerNotFoundException(request.Id);
 
         if (request.Name is not null)

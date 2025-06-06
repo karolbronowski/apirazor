@@ -23,7 +23,7 @@ public class GetListenerByIdQueryHandler : IRequestHandler<GetListenerByIdQuery,
             {
                 Id = l.Id,
                 Name = l.Name,
-                UserName = l.UserName.Value
+                Username = l.Username.Value
             })
             .FirstOrDefaultAsync(cancellationToken);
     }

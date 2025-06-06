@@ -2,7 +2,8 @@ using System;
 using System.Text.RegularExpressions;
 using System.Collections.Generic;
 using FinalLabProject.Domain.Common;
-using FinalLabProject.Domain.Exceptions.Artist;
+using FinalLabProject.Domain.Exceptions.ArtistExceptions;
+using FinalLabProject.Domain.Entities;
 
 namespace FinalLabProject.Domain.ValueObjects;
 

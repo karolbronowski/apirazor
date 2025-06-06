@@ -13,7 +13,7 @@ public class CreateArtistCommandValidator : AbstractValidator<CreateArtistComman
         RuleFor(v => v.Name)
             .NotEmpty()
             .MaximumLength(100);
-        RuleFor(v => v.UserName)
+        RuleFor(v => v.Username)
             .NotEmpty()
             .WithMessage("Username is required.");
         RuleFor(v => v.Email)

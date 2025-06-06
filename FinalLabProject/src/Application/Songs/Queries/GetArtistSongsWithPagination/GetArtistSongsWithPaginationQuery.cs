@@ -2,6 +2,7 @@ using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using FinalLabProject.Application.Common.Interfaces;
 using FinalLabProject.Application.Common.Models;
+using FinalLabProject.Application.Common.Mappings;
 using MediatR;
 
 namespace FinalLabProject.Application.Songs.Queries.GetArtistSongsWithPagination;
