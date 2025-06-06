@@ -6,8 +6,11 @@ namespace FinalLabProject.Domain.ValueObjects;
 
 public sealed class PayoutTier : ValueObject
 {
-    public int Tier { get; }
-    public int ClickThreshold { get; }
+    public int Tier { get; private set; }
+    public int ClickThreshold { get; private set; }
+
+    // EF Core requires a parameterless constructor
+    private PayoutTier() { }
 
     public static readonly PayoutTier Bronze = new(1, 0);
     public static readonly PayoutTier Silver = new(2, 10_000);
@@ -15,7 +18,6 @@ public sealed class PayoutTier : ValueObject
 
     public string Name => ToString();
 
-    // New public constructor for string input
     public PayoutTier(string tier)
     {
         var instance = FromString(tier);
