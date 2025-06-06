@@ -13,11 +13,15 @@ public class CreateArtistCommandValidator : AbstractValidator<CreateArtistComman
         RuleFor(v => v.UserName)
             .NotEmpty()
             .WithMessage("Username is required.");
-
+        RuleFor(v => v.Email)
+            .NotEmpty()
+            .WithMessage("Email is required.");
         RuleFor(v => v.Bio)
             .MaximumLength(500);
-
         RuleFor(v => v.PayoutTier)
             .NotEmpty();
+        RuleFor(v => v.PasswordHash)
+            .NotEmpty()
+            .WithMessage("Password hash is required.");
     }
 }

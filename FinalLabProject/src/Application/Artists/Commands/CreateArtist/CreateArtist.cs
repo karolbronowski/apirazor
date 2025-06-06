@@ -10,8 +10,10 @@ public record CreateArtistCommand : IRequest<int>
 {
     public string Name { get; init; } = default!;
     public Username UserName { get; init; } = default!;
+    public EmailAddress Email { get; init; } = default!;
     public string Bio { get; init; } = string.Empty;
     public PayoutTier PayoutTier { get; init; } = default!;
+    public string PasswordHash { get; init; } = default!;
 }
 
 public class CreateArtistCommandHandler : IRequestHandler<CreateArtistCommand, int>
@@ -28,10 +30,14 @@ public class CreateArtistCommandHandler : IRequestHandler<CreateArtistCommand, i
         var entity = new Artist
         {
             Name = request.Name,
-            UserName = new Username(request.UserName),
+            UserName = new Domain.ValueObjects.Username(request.UserName),
+            Email = new Domain.ValueObjects.EmailAdress(request.Email),
             Bio = request.Bio,
-            PayoutTier = new Domain.ValueObjects.PayoutTier(request.PayoutTier)
+            PayoutTier = new Domain.ValueObjects.PayoutTier(request.PayoutTier),
+            PasswordHash = request.PasswordHash
         };
+        if (_context.Artists.Any(a => a.UserName == entity.UserName))
+            throw new UserAlreadyExistsException(request.UserName, UserType.Artist);
 
         entity.AddDomainEvent(new ArtistCreatedEvent(entity));
 
