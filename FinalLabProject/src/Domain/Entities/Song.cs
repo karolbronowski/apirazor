@@ -1,6 +1,4 @@
-﻿using FinalLabProject.Domain.Entities;
-
-namespace FinalLabProject.Domain.Entities;
+﻿namespace FinalLabProject.Domain.Entities;
 
 public class Song : BaseAuditableEntity
 {

@@ -6,6 +6,9 @@ public class CreateListenerCommandValidator : AbstractValidator<CreateListenerCo
 {
     public CreateListenerCommandValidator()
     {
+        RuleFor(v => v.UserId)
+            .NotEmpty()
+            .WithMessage("UserId is required.");
         RuleFor(v => v.Name)
             .NotEmpty()
             .MaximumLength(100);
@@ -16,8 +19,5 @@ public class CreateListenerCommandValidator : AbstractValidator<CreateListenerCo
         RuleFor(v => v.Email)
             .NotEmpty()
             .WithMessage("Email is required.");
-        RuleFor(v => v.PasswordHash)
-            .NotEmpty()
-            .WithMessage("Password hash is required.");
     }
 }

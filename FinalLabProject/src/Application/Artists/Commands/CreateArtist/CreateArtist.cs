@@ -8,12 +8,12 @@ namespace FinalLabProject.Application.Artists.Commands.CreateArtist;
 
 public record CreateArtistCommand : IRequest<int>
 {
+    public string UserId { get; init; } = default!;
     public string Name { get; init; } = default!;
     public Username UserName { get; init; } = default!;
     public EmailAddress Email { get; init; } = default!;
     public string Bio { get; init; } = string.Empty;
     public PayoutTier PayoutTier { get; init; } = default!;
-    public string PasswordHash { get; init; } = default!;
 }
 
 public class CreateArtistCommandHandler : IRequestHandler<CreateArtistCommand, int>
@@ -29,12 +29,12 @@ public class CreateArtistCommandHandler : IRequestHandler<CreateArtistCommand, i
     {
         var entity = new Artist
         {
+            UserId = request.UserId,
             Name = request.Name,
             UserName = new Domain.ValueObjects.Username(request.UserName),
             Email = new Domain.ValueObjects.EmailAdress(request.Email),
             Bio = request.Bio,
             PayoutTier = new Domain.ValueObjects.PayoutTier(request.PayoutTier),
-            PasswordHash = request.PasswordHash
         };
         if (_context.Artists.Any(a => a.UserName == entity.UserName))
             throw new UserAlreadyExistsException(request.UserName, UserType.Artist);

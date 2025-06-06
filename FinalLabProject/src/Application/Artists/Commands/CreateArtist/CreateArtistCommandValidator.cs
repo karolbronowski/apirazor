@@ -7,6 +7,9 @@ public class CreateArtistCommandValidator : AbstractValidator<CreateArtistComman
 {
     public CreateArtistCommandValidator()
     {
+        RuleFor(v => v.UserId)
+            .NotEmpty()
+            .WithMessage("UserId is required.");
         RuleFor(v => v.Name)
             .NotEmpty()
             .MaximumLength(100);
@@ -20,8 +23,5 @@ public class CreateArtistCommandValidator : AbstractValidator<CreateArtistComman
             .MaximumLength(500);
         RuleFor(v => v.PayoutTier)
             .NotEmpty();
-        RuleFor(v => v.PasswordHash)
-            .NotEmpty()
-            .WithMessage("Password hash is required.");
     }
 }
