@@ -1,7 +1,9 @@
 using FinalLabProject.Application.Common.Interfaces;
 using FinalLabProject.Domain.Entities;
-using FinalLabProject.Domain.Events.Listener;
+using FinalLabProject.Domain.Events.ListenerEvents;
+using FinalLabProject.Domain.Exceptions.Common;
 using FinalLabProject.Domain.ValueObjects;
+using FinalLabProject.Domain.Enums;
 using MediatR;
 
 namespace FinalLabProject.Application.Listeners.Commands.CreateListener;
@@ -10,8 +12,8 @@ public record CreateListenerCommand : IRequest<int>
 {
     public string UserId { get; init; } = default!;
     public string Name { get; init; } = default!;
-    public Username UserName { get; init; } = default!;
-    public EmailAddress Email { get; init; } = default!;
+    public string Username { get; init; } = default!;
+    public string Email { get; init; } = default!;
 }
 
 public class CreateListenerCommandHandler : IRequestHandler<CreateListenerCommand, int>
@@ -29,13 +31,12 @@ public class CreateListenerCommandHandler : IRequestHandler<CreateListenerComman
         {
             UserId = request.UserId,
             Name = request.Name,
-            UserName = new Username(request.UserName),
+            Username = new Username(request.Username),
             Email = new EmailAddress(request.Email),
-            PasswordHash = request.PasswordHash
         };
 
-        if (_context.Listeners.Any(l => l.UserName == request.UserName))
-            throw new UserAlreadyExistsException(request.UserName, UserType.Listener);
+        if (_context.Listeners.Any(l => l.Username == request.Username))
+            throw new UserAlreadyExistsException(request.Username, UserType.Listener);
             
         entity.AddDomainEvent(new ListenerCreatedEvent(entity));
 

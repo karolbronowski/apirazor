@@ -78,9 +78,9 @@ public class ApplicationDbContextInitialiser
         }
 
         // Default admin user
-        var administrator = new ApplicationUser { UserName = "administrator@localhost", Email = "administrator@localhost" };
+        var administrator = new ApplicationUser { Username = "administrator@localhost", Email = "administrator@localhost" };
 
-        if (_userManager.Users.All(u => u.UserName != administrator.UserName))
+        if (_userManager.Users.All(u => uUsername != administratorUsername))
         {
             await _userManager.CreateAsync(administrator, "Administrator1!");
             await _userManager.AddToRoleAsync(administrator, Roles.Administrator);
@@ -109,7 +109,7 @@ public class ApplicationDbContextInitialiser
         {
             var artistUser = new ApplicationUser
             {
-                UserName = "testartist",
+                Username = "testartist",
                 Email = "artist@example.com"
             };
             var artistUserResult = await _userManager.CreateAsync(artistUser, "Artist1!");
@@ -153,7 +153,7 @@ public class ApplicationDbContextInitialiser
         {
             var listenerUser = new ApplicationUser
             {
-                UserName = "testlistener",
+                Username = "testlistener",
                 Email = "listener@example.com"
             };
             var listenerUserResult = await _userManager.CreateAsync(listenerUser, "Listener1!");

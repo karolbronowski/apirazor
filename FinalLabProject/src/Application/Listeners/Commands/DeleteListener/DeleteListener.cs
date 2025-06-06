@@ -1,6 +1,7 @@
 using FinalLabProject.Application.Common.Interfaces;
 using FinalLabProject.Domain.Entities;
-using FinalLabProject.Domain.Events.Listener;
+using FinalLabProject.Domain.Events.ListenerEvents;
+using FinalLabProject.Domain.Exceptions.ListenerExceptions;
 using MediatR;
 
 namespace FinalLabProject.Application.Listeners.Commands.DeleteListener;
@@ -19,7 +20,7 @@ public class DeleteListenerCommandHandler : IRequestHandler<DeleteListenerComman
     public async Task Handle(DeleteListenerCommand request, CancellationToken cancellationToken)
     {
         var entity = await _context.Listeners.FindAsync(new object[] { request.Id }, cancellationToken);
-        if (!entity)
+        if (entity == null)
             throw new ListenerNotFoundException(request.Id);
 
         _context.Listeners.Remove(entity);

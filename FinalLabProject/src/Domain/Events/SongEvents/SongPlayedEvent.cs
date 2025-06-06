@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace FinalLabProject.Domain.Events.Song;
+namespace FinalLabProject.Domain.Events.SongEvents;
 
 public class SongPlayedEvent : BaseEvent
 {

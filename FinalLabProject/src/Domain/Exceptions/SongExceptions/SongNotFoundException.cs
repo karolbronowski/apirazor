@@ -1,6 +1,6 @@
 using System;
 
-namespace FinalLabProject.Domain.Exceptions.Song;
+namespace FinalLabProject.Domain.Exceptions.SongExceptions;
 
 public class SongNotFoundException : Exception
 {

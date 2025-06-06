@@ -1,6 +1,6 @@
 using System;
 
-namespace FinalLabProject.Domain.Exceptions.Listener;
+namespace FinalLabProject.Domain.Exceptions.ListenerExceptions;
 
 public class ListenerNotFoundException : Exception
 {

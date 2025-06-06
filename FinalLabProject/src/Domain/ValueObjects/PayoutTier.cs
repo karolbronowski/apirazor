@@ -13,6 +13,16 @@ public sealed class PayoutTier : ValueObject
     public static readonly PayoutTier Silver = new(2, 10_000);
     public static readonly PayoutTier Gold = new(3, 100_000);
 
+    public string Name => ToString();
+
+    // New public constructor for string input
+    public PayoutTier(string tier)
+    {
+        var instance = FromString(tier);
+        Tier = instance.Tier;
+        ClickThreshold = instance.ClickThreshold;
+    }
+
     public static PayoutTier FromClicks(int clicks)
     {
         if (clicks >= Gold.ClickThreshold)
@@ -20,6 +30,17 @@ public sealed class PayoutTier : ValueObject
         if (clicks >= Silver.ClickThreshold)
             return Silver;
         return Bronze;
+    }
+
+    public static PayoutTier FromString(string tier)
+    {
+        return tier switch
+        {
+            "Bronze" => Bronze,
+            "Silver" => Silver,
+            "Gold" => Gold,
+            _ => throw new ArgumentException($"Invalid payout tier: {tier}")
+        };
     }
 
     private PayoutTier(int tier, int threshold)

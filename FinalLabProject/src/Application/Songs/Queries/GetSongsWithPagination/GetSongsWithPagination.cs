@@ -1,5 +1,6 @@
 using FinalLabProject.Application.Common.Interfaces;
 using FinalLabProject.Application.Common.Models;
+using FinalLabProject.Application.Common.Mappings;
 using FinalLabProject.Domain.Entities;
 using MediatR;
 using AutoMapper;

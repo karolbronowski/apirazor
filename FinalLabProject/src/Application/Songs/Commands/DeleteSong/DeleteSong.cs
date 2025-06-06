@@ -1,5 +1,6 @@
 using FinalLabProject.Application.Common.Interfaces;
-using FinalLabProject.Domain.Events.Song;
+using FinalLabProject.Domain.Events.SongEvents;
+using FinalLabProject.Domain.Exceptions.SongExceptions;
 
 namespace FinalLabProject.Application.Songs.Commands.DeleteSong;
 
@@ -19,7 +20,7 @@ public class DeleteSongCommandHandler : IRequestHandler<DeleteSongCommand>
         var entity = await _context.Songs
             .FindAsync(new object[] { request.Id }, cancellationToken);
 
-        if(!entity)
+        if(entity == null)
             throw new SongNotFoundException(request.Id);
 
         _context.Songs.Remove(entity);

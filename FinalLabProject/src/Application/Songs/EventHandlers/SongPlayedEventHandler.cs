@@ -1,4 +1,4 @@
-using FinalLabProject.Domain.Events.Song;
+using FinalLabProject.Domain.Events.SongEvents;
 using MediatR;
 using Microsoft.Extensions.Logging;
 

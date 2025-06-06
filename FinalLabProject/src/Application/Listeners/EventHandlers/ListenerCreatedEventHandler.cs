@@ -1,4 +1,4 @@
-using FinalLabProject.Domain.Events.Listener;
+using FinalLabProject.Domain.Events.ListenerEvents;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
@@ -16,10 +16,10 @@ public class ListenerCreatedEventHandler : INotificationHandler<ListenerCreatedE
     public Task Handle(ListenerCreatedEvent notification, CancellationToken cancellationToken)
     {
         _logger.LogInformation(
-            "Listener created: ListenerId={ListenerId}, Name={Name}, UserName={UserName}",
+            "Listener created: ListenerId={ListenerId}, Name={Name}, Username={Username}",
             notification.Entity.Id,
             notification.Entity.Name,
-            notification.Entity.UserName
+            notification.Entity.Username
         );
         return Task.CompletedTask;
     }

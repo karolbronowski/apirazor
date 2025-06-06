@@ -1,6 +1,7 @@
 using FinalLabProject.Application.Common.Interfaces;
 using FinalLabProject.Domain.Entities;
-using FinalLabProject.Domain.Events.Song;
+using FinalLabProject.Domain.Events.SongEvents;
+using FinalLabProject.Domain.Exceptions.SongExceptions;
 using MediatR;
 
 namespace FinalLabProject.Application.Songs.Commands.CreateSong;

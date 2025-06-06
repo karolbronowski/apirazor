@@ -1,6 +1,6 @@
 using System;
 
-namespace FinalLabProject.Domain.Exceptions.Artist;
+namespace FinalLabProject.Domain.Exceptions.ArtistExceptions;
 
 public class InvalidEmailException : Exception
 {

@@ -1,13 +1,13 @@
 using FluentValidation;
 
-namespace FinalLabProject.Application.Listeners.Queries.GetListenerByUserName;
+namespace FinalLabProject.Application.Listeners.Queries.GetListenerByUsername;
 
-public class GetListenerByUserNameQueryValidator : AbstractValidator<GetListenerByUserNameQuery>
+public class GetListenerByUsernameQueryValidator : AbstractValidator<GetListenerByUsernameQuery>
 {
-    public GetListenerByUserNameQueryValidator()
+    public GetListenerByUsernameQueryValidator()
     {
-        RuleFor(v => v.UserName)
+        RuleFor(v => v.Username)
             .NotEmpty()
-            .WithMessage("UserName must not be empty.");
+            .WithMessage("Username must not be empty.");
     }
 }

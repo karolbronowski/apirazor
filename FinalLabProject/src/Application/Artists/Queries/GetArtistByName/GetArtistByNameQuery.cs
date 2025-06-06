@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
+
 namespace FinalLabProject.Application.Artists.Queries.GetArtistByName;
 
 public record GetArtistByNameQuery(string Name) : IRequest<List<ArtistDto>>;
@@ -28,9 +29,9 @@ public class GetArtistByNameQueryHandler : IRequestHandler<GetArtistByNameQuery,
             {
                 Id = a.Id,
                 Name = a.Name,
-                UserName = a.UserName.Value,
+                Username = a.Username.Value,
                 Bio = a.Bio,
-                PayoutTier = a.PayoutTier.Value
+                PayoutTier = a.PayoutTier.Name
             })
             .ToListAsync(cancellationToken);
     }

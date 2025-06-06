@@ -1,4 +1,4 @@
-using FinalLabProject.Domain.Events.Artist;
+using FinalLabProject.Domain.Events.ArtistEvents;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
