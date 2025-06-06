@@ -8,10 +8,10 @@ namespace FinalLabProject.Application.Listeners.Commands.CreateListener;
 
 public record CreateListenerCommand : IRequest<int>
 {
+    public string UserId { get; init; } = default!;
     public string Name { get; init; } = default!;
     public Username UserName { get; init; } = default!;
     public EmailAddress Email { get; init; } = default!;
-    public string PasswordHash { get; init; } = default!;
 }
 
 public class CreateListenerCommandHandler : IRequestHandler<CreateListenerCommand, int>
@@ -27,6 +27,7 @@ public class CreateListenerCommandHandler : IRequestHandler<CreateListenerComman
     {
         var entity = new Listener
         {
+            UserId = request.UserId,
             Name = request.Name,
             UserName = new Username(request.UserName),
             Email = new EmailAddress(request.Email),

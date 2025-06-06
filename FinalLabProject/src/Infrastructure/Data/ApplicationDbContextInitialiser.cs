@@ -67,28 +67,26 @@ public class ApplicationDbContextInitialiser
 
     public async Task TrySeedAsync()
     {
-        // Default roles
-        var administratorRole = new IdentityRole(Roles.Administrator);
-
-        if (_roleManager.Roles.All(r => r.Name != administratorRole.Name))
+        // Ensure roles exist
+        var requiredRoles = new[] { Roles.Administrator, Roles.Artist, Roles.Listener };
+        foreach (var roleName in requiredRoles)
         {
-            await _roleManager.CreateAsync(administratorRole);
+            if (!await _roleManager.RoleExistsAsync(roleName))
+            {
+                await _roleManager.CreateAsync(new IdentityRole(roleName));
+            }
         }
 
-        // Default users
+        // Default admin user
         var administrator = new ApplicationUser { UserName = "administrator@localhost", Email = "administrator@localhost" };
 
         if (_userManager.Users.All(u => u.UserName != administrator.UserName))
         {
             await _userManager.CreateAsync(administrator, "Administrator1!");
-            if (!string.IsNullOrWhiteSpace(administratorRole.Name))
-            {
-                await _userManager.AddToRolesAsync(administrator, new [] { administratorRole.Name });
-            }
+            await _userManager.AddToRoleAsync(administrator, Roles.Administrator);
         }
 
-        // Default data
-        // Seed, if necessary
+        // Seed TodoList
         if (!_context.TodoLists.Any())
         {
             _context.TodoLists.Add(new TodoList
@@ -104,6 +102,84 @@ public class ApplicationDbContextInitialiser
             });
 
             await _context.SaveChangesAsync();
+        }
+
+        // Seed Artist user + Artist entity
+        if (!_context.Artists.Any())
+        {
+            var artistUser = new ApplicationUser
+            {
+                UserName = "testartist",
+                Email = "artist@example.com"
+            };
+            var artistUserResult = await _userManager.CreateAsync(artistUser, "Artist1!");
+            if (artistUserResult.Succeeded)
+            {
+                // Assign to Artist role
+                await _userManager.AddToRoleAsync(artistUser, Roles.Artist);
+
+                var artist = new Artist
+                {
+                    UserId = artistUser.Id,
+                    Name = "Test Artist",
+                    Username = new Username("testartist"),
+                    Email = new EmailAddress("artist@example.com"),
+                    Bio = "A test artist.",
+                    PayoutTier = new PayoutTier { Tier = "Standard" }
+                };
+                _context.Artists.Add(artist);
+                await _context.SaveChangesAsync();
+            }
+        }
+
+        // Seed Song
+        if (!_context.Songs.Any())
+        {
+            var artist = _context.Artists.First();
+            var song = new Song
+            {
+                Title = "Test Song",
+                ArtistId = artist.Id,
+                ListenedTimes = 0,
+                Created = DateTimeOffset.UtcNow,
+                LastModified = DateTimeOffset.UtcNow
+            };
+            _context.Songs.Add(song);
+            await _context.SaveChangesAsync();
+        }
+
+        // Seed Listener user + Listener entity
+        if (!_context.Listeners.Any())
+        {
+            var listenerUser = new ApplicationUser
+            {
+                UserName = "testlistener",
+                Email = "listener@example.com"
+            };
+            var listenerUserResult = await _userManager.CreateAsync(listenerUser, "Listener1!");
+            if (listenerUserResult.Succeeded)
+            {
+                // Assign to Listener role
+                await _userManager.AddToRoleAsync(listenerUser, Roles.Listener);
+
+                var listener = new Listener
+                {
+                    UserId = listenerUser.Id,
+                    Name = "Test Listener",
+                    Username = new Username("testlistener"),
+                    Email = new EmailAddress("listener@example.com"),
+                };
+                _context.Listeners.Add(listener);
+                await _context.SaveChangesAsync();      
+
+                // Assign favourite songs after both listener and songs are seeded
+                var firstSong = _context.Songs.FirstOrDefault();
+                if (firstSong != null)
+                {
+                    listener.FavouriteSongs.Add(firstSong);
+                    await _context.SaveChangesAsync();
+                }
+            }
         }
     }
 }

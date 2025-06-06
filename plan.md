@@ -20,7 +20,7 @@
 
 ## Layers: 
 - [x] Domain (Done – entities, logic)
-- [ ] Application (Almost done – use cases, interfaces, DTOs, handlers)
+- [x] Application (use cases, interfaces, DTOs, handlers)
 - [ ] Infrastructure (Implement interfaces, DB, JWT, etc.)
 - [ ] WebAPI (Controllers, endpoints, middleware)
 - [ ] WebApplicationAdmin (UI)
@@ -28,9 +28,9 @@
 ---
 
 ## REST API (Spotify Domain)
-- [x] Song CRUD endpoints
-- [x] Artist CRUD endpoints
-- [x] Listener CRUD endpoints
+- [ ] Song CRUD endpoints
+- [ ] Artist CRUD endpoints
+- [ ] Listener CRUD endpoints
 - [ ] Middleware for HTTP status codes and error handling
 - [ ] JWT authentication and role-based authorization
 - [ ] EF InMemory database setup
