@@ -1,0 +1,50 @@
+Logged in as administrator@localhost
+---- ARTISTS: Get all (paginated) ----
+{"items":[{"id":1,"name":"Test Artist","username":"testartist","bio":"A test artist.","payoutTier":"Bronze","email":"artist@example.com"}],"pageNumber":1,"totalPages":1,"totalCount":1,"hasPreviousPage":false,"hasNextPage":false}
+HTTP 200
+---- ARTISTS: Get by ID (assuming id=1) ----
+{"id":1,"name":"Test Artist","username":"testartist","bio":"A test artist.","payoutTier":"Bronze","email":"artist@example.com"}
+HTTP 200
+---- ARTISTS: Get by name ----
+
+HTTP 000
+---- ARTISTS: Create ----
+{"type":"https://tools.ietf.org/html/rfc7231#section-6.5.1","title":"One or more validation errors occurred.","status":400,"errors":{"UserId":["UserId is required."]}}
+HTTP 400
+---- ARTISTS: Update (id=1) ----
+
+HTTP 204
+---- ARTISTS: Update payout tier (id=1) ----
+
+HTTP 204
+---- SONGS: Get all (paginated) ----
+{"items":[{"id":1,"title":"Test Song","artistId":1,"listenedTimes":0}],"pageNumber":1,"totalPages":1,"totalCount":1,"hasPreviousPage":false,"hasNextPage":false}
+HTTP 200
+---- SONGS: Get by artist (seeded artistId=1) ----
+{"items":[{"id":1,"title":"Test Song","artistId":1,"listenedTimes":0}],"pageNumber":1,"totalPages":1,"totalCount":1,"hasPreviousPage":false,"hasNextPage":false}
+HTTP 200
+---- SONGS: Create (artistId=1) ----
+2
+HTTP 200
+---- SONGS: Update (id=1) ----
+
+HTTP 204
+---- SONGS: Play song (id=1) ----
+
+HTTP 204
+---- LISTENERS: Get all (paginated) ----
+{"items":[{"id":1,"name":"Test Listener","username":"testlistener","email":"listener@example.com"}],"pageNumber":1,"totalPages":1,"totalCount":1,"hasPreviousPage":false,"hasNextPage":false}
+HTTP 200
+---- LISTENERS: Get by username ----
+{"id":1,"name":"Test Listener","username":"testlistener","email":"listener@example.com"}
+HTTP 200
+---- LISTENERS: Create ----
+{"type":"https://tools.ietf.org/html/rfc7231#section-6.5.1","title":"One or more validation errors occurred.","status":400,"errors":{"UserId":["UserId is required."]}}
+HTTP 400
+---- LISTENERS: Update (id=1) ----
+
+HTTP 204
+---- LISTENERS: Update favorite song (listenerId=1, songId=1) ----
+
+HTTP 204
+DONE.

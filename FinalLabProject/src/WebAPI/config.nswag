@@ -3,14 +3,14 @@
   "defaultVariables": null,
   "documentGenerator": {
     "aspNetCoreToOpenApi": {
-      "project": "Web.csproj",
+      "project": "WebAPI.csproj",
       "msBuildProjectExtensionsPath": null,
       "configuration": null,
       "runtime": null,
       "targetFramework": null,
       "noBuild": true,
       "msBuildOutputPath": null,
-      "verbose": false,
+      "verbose": true,
       "workingDirectory": null,
       "requireParametersWithoutDefault": true,
       "apiGroupNames": null,

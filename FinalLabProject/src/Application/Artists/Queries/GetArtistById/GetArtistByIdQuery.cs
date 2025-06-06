@@ -26,7 +26,8 @@ public class GetArtistByIdQueryHandler : IRequestHandler<GetArtistByIdQuery, Art
                 Name = a.Name,
                 Username = a.Username.Value,
                 Bio = a.Bio,
-                PayoutTier = a.PayoutTier.Name
+                PayoutTier = a.PayoutTier.Name,
+                Email = a.Email.Value
             })
             .FirstOrDefaultAsync(cancellationToken);
     }

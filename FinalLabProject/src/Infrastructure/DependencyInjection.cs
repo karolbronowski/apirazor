@@ -23,9 +23,9 @@ public static class DependencyInjection
 
         services.AddDbContext<ApplicationDbContext>((sp, options) =>
         {
-            options.AddInterceptors(sp.GetServices<ISaveChangesInterceptor>());
+            options.AddInterceptors(sp.GetServices<ISaveChangesInterceptor>());     
 
-            options.UseSqlServer(connectionString);
+            options.UseInMemoryDatabase("FinalLabProjectDb");
         });
 
         services.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<ApplicationDbContext>());
