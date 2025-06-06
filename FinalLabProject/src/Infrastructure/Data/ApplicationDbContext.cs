@@ -22,11 +22,11 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplica
         base.OnModelCreating(builder);
         builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
-        modelBuilder.Entity<Artist>()
+        builder.Entity<Artist>()
             .HasIndex(a => a.UserId)
             .IsUnique();
 
-         modelBuilder.Entity<Listener>()
+         builder.Entity<Listener>()
             .HasIndex(l => l.UserId)
             .IsUnique();
     }

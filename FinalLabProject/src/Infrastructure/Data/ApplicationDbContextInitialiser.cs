@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using FinalLabProject.Domain.ValueObjects;
 
 namespace FinalLabProject.Infrastructure.Data;
 
@@ -78,9 +79,9 @@ public class ApplicationDbContextInitialiser
         }
 
         // Default admin user
-        var administrator = new ApplicationUser { Username = "administrator@localhost", Email = "administrator@localhost" };
+        var administrator = new ApplicationUser { UserName = "administrator@localhost", Email = "administrator@localhost" };
 
-        if (_userManager.Users.All(u => uUsername != administratorUsername))
+        if (_userManager.Users.All(u => u.UserName != administrator.UserName))
         {
             await _userManager.CreateAsync(administrator, "Administrator1!");
             await _userManager.AddToRoleAsync(administrator, Roles.Administrator);
@@ -109,7 +110,7 @@ public class ApplicationDbContextInitialiser
         {
             var artistUser = new ApplicationUser
             {
-                Username = "testartist",
+                UserName = "testartist",
                 Email = "artist@example.com"
             };
             var artistUserResult = await _userManager.CreateAsync(artistUser, "Artist1!");
@@ -125,7 +126,7 @@ public class ApplicationDbContextInitialiser
                     Username = new Username("testartist"),
                     Email = new EmailAddress("artist@example.com"),
                     Bio = "A test artist.",
-                    PayoutTier = new PayoutTier { Tier = "Standard" }
+                    PayoutTier = new PayoutTier("Bronze")
                 };
                 _context.Artists.Add(artist);
                 await _context.SaveChangesAsync();
@@ -153,7 +154,7 @@ public class ApplicationDbContextInitialiser
         {
             var listenerUser = new ApplicationUser
             {
-                Username = "testlistener",
+                UserName = "testlistener",
                 Email = "listener@example.com"
             };
             var listenerUserResult = await _userManager.CreateAsync(listenerUser, "Listener1!");
