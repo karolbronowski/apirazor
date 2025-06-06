@@ -19,7 +19,8 @@ public class DeleteSongCommandHandler : IRequestHandler<DeleteSongCommand>
         var entity = await _context.Songs
             .FindAsync(new object[] { request.Id }, cancellationToken);
 
-        Guard.Against.NotFound(request.Id, entity);
+        if(!entity)
+            throw new SongNotFoundException(request.Id);
 
         _context.Songs.Remove(entity);
 
