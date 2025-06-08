@@ -1,4 +1,5 @@
 using FinalLabProject.Infrastructure.Data;
+using FinalLabProject.WebAPI.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -41,6 +42,8 @@ app.MapRazorPages();
 app.MapFallbackToFile("index.html");
 
 app.UseExceptionHandler(options => { });
+app.UseMiddleware<ExceptionsMiddleware>();
+app.UseMiddleware<EndpointsHeadersMiddleware>();
 
 app.Map("/", () => Results.Redirect("/api"));
 

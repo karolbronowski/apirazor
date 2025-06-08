@@ -9,4 +9,5 @@ public class ArtistDto
     public string Username { get; set; } = default!;
     public string Bio { get; set; } = default!;
     public string PayoutTier { get; set; } = default!;
+    public string Email { get; set; } = default!;
 }

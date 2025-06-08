@@ -16,7 +16,6 @@ public class SqlServerTestDatabase : ITestDatabase
     public SqlServerTestDatabase()
     {
         var configuration = new ConfigurationBuilder()
-            .AddJsonFile("appsettings.json")
             .AddEnvironmentVariables()
             .Build();
 
@@ -29,34 +28,29 @@ public class SqlServerTestDatabase : ITestDatabase
 
     public async Task InitialiseAsync()
     {
-        _connection = new SqlConnection(_connectionString);
-
         var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-            .UseSqlServer(_connectionString)
-            .Options;
+            .UseInMemoryDatabase("FinalLabProjectDb")
+            .Options;   
 
-        var context = new ApplicationDbContext(options);
+        var context = new ApplicationDbContext(options);    
 
-        context.Database.Migrate();
-
-        _respawner = await Respawner.CreateAsync(_connectionString, new RespawnerOptions
-        {
-            TablesToIgnore = new Respawn.Graph.Table[] { "__EFMigrationsHistory" }
-        });
-    }
+        // No migration needed for InMemory, but you can ensure database is created
+        await context.Database.EnsureCreatedAsync();
+    }   
 
     public DbConnection GetConnection()
     {
-        return _connection;
-    }
+        // InMemory provider does not use DbConnection, so you can return null or throw
+        throw new NotSupportedException("InMemory provider does not support DbConnection.");
+    }   
 
     public async Task ResetAsync()
     {
-        await _respawner.ResetAsync(_connectionString);
-    }
+        // For InMemory, you can just recreate the context or clear data as needed
+    }   
 
     public async Task DisposeAsync()
     {
-        await _connection.DisposeAsync();
+        // Nothing to dispose for InMemory
     }
 }

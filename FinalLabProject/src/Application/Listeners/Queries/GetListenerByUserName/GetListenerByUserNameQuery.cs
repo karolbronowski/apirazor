@@ -24,7 +24,8 @@ public class GetListenerByUsernameQueryHandler : IRequestHandler<GetListenerByUs
             {
                 Id = l.Id,
                 Name = l.Name,
-                Username = l.Username.Value
+                Username = l.Username.Value,
+                Email = l.Email.Value
             })
             .FirstOrDefaultAsync(cancellationToken);
     }

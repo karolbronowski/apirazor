@@ -22,11 +22,23 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplica
         base.OnModelCreating(builder);
         builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
+        // Configure value objects as owned types for Artist
+        builder.Entity<Artist>()
+            .OwnsOne(a => a.Username, b => b.Property(u => u.Value).HasColumnName("Username"));
+        builder.Entity<Artist>()
+            .OwnsOne(a => a.Email, b => b.Property(e => e.Value).HasColumnName("Email"));
+
+        // Configure value objects as owned types for Listener
+        builder.Entity<Listener>()
+            .OwnsOne(l => l.Username, b => b.Property(u => u.Value).HasColumnName("Username"));
+        builder.Entity<Listener>()
+            .OwnsOne(l => l.Email, b => b.Property(e => e.Value).HasColumnName("Email"));
+
         builder.Entity<Artist>()
             .HasIndex(a => a.UserId)
             .IsUnique();
 
-         builder.Entity<Listener>()
+        builder.Entity<Listener>()
             .HasIndex(l => l.UserId)
             .IsUnique();
     }

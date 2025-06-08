@@ -21,23 +21,26 @@
 ## Layers: 
 - [x] Domain (Done – entities, logic)
 - [x] Application (use cases, interfaces, DTOs, handlers)
-- [ ] Infrastructure (Implement interfaces, DB, JWT, etc.)
-- [ ] WebAPI (Controllers, endpoints, middleware)
+- [x] Infrastructure (Implement interfaces, DB, JWT, etc.)
+- [x] WebAPI (Controllers, endpoints, middleware)
+- [ ] Unit tests (layers)
 - [ ] WebApplicationAdmin (UI)
 
 ---
 
 ## REST API (Spotify Domain)
-- [ ] Song CRUD endpoints
-- [ ] Artist CRUD endpoints
-- [ ] Listener CRUD endpoints
-- [ ] Middleware for HTTP status codes and error handling
-- [ ] JWT authentication and role-based authorization
-- [ ] EF InMemory database setup
-- [ ] Swagger/OpenAPI docs
+- [x] Song CRUD endpoints
+- [x] Artist CRUD endpoints
+- [x] Listener CRUD endpoints
+- [x] Middleware for HTTP status codes and error handling
+- [x] JWT authentication  
+- [ ] and role-based authorization
+- [x] EF InMemory database setup
+- [x] Swagger/OpenAPI docs
+`Do pominięcia? nie wiem wsm co mam tutaj konfigurować nie ukrywam xd`
 - [ ] Configuration via appsettings.json/environment variables (JWT secrets, etc.)
 - [ ] Unit tests of core logic
-- [ ] cURL script to test API endpoints
+- [x] cURL script to test API endpoints
 
 ---
 
