@@ -6,15 +6,36 @@ HTTP 200
 {"id":1,"name":"Test Artist","username":"testartist","bio":"A test artist.","payoutTier":"Bronze","email":"artist@example.com"}
 HTTP 200
 ---- ARTISTS: Get by name ----
-
-HTTP 000
+[{"id":1,"name":"Test Artist","username":"testartist","bio":"A test artist.","payoutTier":"Bronze","email":"artist@example.com"}]
+HTTP 200
 ---- ARTISTS: Create ----
-{"type":"https://tools.ietf.org/html/rfc7231#section-6.5.1","title":"One or more validation errors occurred.","status":400,"errors":{"UserId":["UserId is required."]}}
-HTTP 400
+2
+HTTP 200
 ---- ARTISTS: Update (id=1) ----
 
 HTTP 204
 ---- ARTISTS: Update payout tier (id=1) ----
+
+HTTP 204
+---- ARTISTS: Delete (id=1) ----
+
+HTTP 204
+---- LISTENERS: Get all (paginated) ----
+{"items":[{"id":1,"name":"Test Listener","username":"testlistener","email":"listener@example.com"}],"pageNumber":1,"totalPages":1,"totalCount":1,"hasPreviousPage":false,"hasNextPage":false}
+HTTP 200
+---- LISTENERS: Get by username ----
+{"id":1,"name":"Test Listener","username":"testlistener","email":"listener@example.com"}
+HTTP 200
+---- LISTENERS: Create ----
+2
+HTTP 200
+---- LISTENERS: Update (id=1) ----
+
+HTTP 204
+---- LISTENERS: Update favorite song (listenerId=1, songId=1) ----
+
+HTTP 204
+---- LISTENERS: Delete (id=1) ----
 
 HTTP 204
 ---- SONGS: Get all (paginated) ----
@@ -32,19 +53,7 @@ HTTP 204
 ---- SONGS: Play song (id=1) ----
 
 HTTP 204
----- LISTENERS: Get all (paginated) ----
-{"items":[{"id":1,"name":"Test Listener","username":"testlistener","email":"listener@example.com"}],"pageNumber":1,"totalPages":1,"totalCount":1,"hasPreviousPage":false,"hasNextPage":false}
-HTTP 200
----- LISTENERS: Get by username ----
-{"id":1,"name":"Test Listener","username":"testlistener","email":"listener@example.com"}
-HTTP 200
----- LISTENERS: Create ----
-{"type":"https://tools.ietf.org/html/rfc7231#section-6.5.1","title":"One or more validation errors occurred.","status":400,"errors":{"UserId":["UserId is required."]}}
-HTTP 400
----- LISTENERS: Update (id=1) ----
-
-HTTP 204
----- LISTENERS: Update favorite song (listenerId=1, songId=1) ----
+---- SONGS: Delete (id=1) ----
 
 HTTP 204
 DONE.

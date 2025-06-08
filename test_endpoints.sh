@@ -53,12 +53,12 @@ echo "---- ARTISTS: Get by ID (assuming id=1) ----"
 auth_curl "$API_BASE/api/Artists/1"
 
 echo "---- ARTISTS: Get by name ----"
-auth_curl "$API_BASE/api/Artists/by-name?name=$SEED_ARTIST_NAME"
+auth_curl "$API_BASE/api/Artists/by-name?name=$(printf "%s" "$SEED_ARTIST_NAME" | sed 's/ /%20/g')"
 
 echo "---- ARTISTS: Create ----"
 auth_curl -X POST "$API_BASE/api/Artists" \
   -H "Content-Type: application/json" \
-  -d "{\"name\": \"New Artist\", \"username\": \"newartistuser\", \"email\": \"newartist@example.com\", \"bio\": \"Bio from script\", \"payoutTier\": \"Silver\", \"userId\": null}"
+  -d "{\"name\": \"New Artist\", \"username\": \"newartistuser\", \"email\": \"newartist@example.com\", \"bio\": \"Bio from script\", \"payoutTier\": \"Silver\", \"userId\": null, \"password\": \"ArtistTest123!\"}"
 
 echo "---- ARTISTS: Update (id=1) ----"
 auth_curl -X PUT "$API_BASE/api/Artists/1" \
@@ -71,8 +71,37 @@ auth_curl -X PUT "$API_BASE/api/Artists/payout-tier/1" \
   -d "{\"artistId\": 1, \"payoutTier\": \"Gold\"}"
 
 # For destructive testing, uncomment:
-# echo "---- ARTISTS: Delete (id=1) ----"
-# auth_curl -X DELETE "$API_BASE/api/Artists/1"
+echo "---- ARTISTS: Delete (id=1) ----"
+auth_curl -X DELETE "$API_BASE/api/Artists/1"
+
+###########################
+# LISTENERS
+###########################
+echo "---- LISTENERS: Get all (paginated) ----"
+auth_curl "$API_BASE/api/Listeners?pageNumber=1&pageSize=10"
+
+echo "---- LISTENERS: Get by username ----"
+auth_curl "$API_BASE/api/Listeners/by-username?username=$SEED_LISTENER_USERNAME"
+
+echo "---- LISTENERS: Create ----"
+auth_curl -X POST "$API_BASE/api/Listeners" \
+  -H "Content-Type: application/json" \
+  -d "{\"name\": \"New Listener\", \"username\": \"newlisteneruser\", \"email\": \"newlistener@example.com\", \"userId\": null, \"password\": \"ListenerTest123!\"}"
+
+echo "---- LISTENERS: Update (id=1) ----"
+auth_curl -X PUT "$API_BASE/api/Listeners/1" \
+  -H "Content-Type: application/json" \
+  -d "{\"id\": 1, \"name\": \"Test Listener Updated\"}"
+
+echo "---- LISTENERS: Update favorite song (listenerId=1, songId=1) ----"
+auth_curl -X PUT "$API_BASE/api/Listeners/favorite-song" \
+  -H "Content-Type: application/json" \
+  -d "{\"listenerId\": 1, \"songId\": 1}"
+
+# For destructive testing, uncomment:
+echo "---- LISTENERS: Delete (id=1) ----"
+auth_curl -X DELETE "$API_BASE/api/Listeners/1"
+
 
 ###########################
 # SONGS
@@ -97,35 +126,7 @@ echo "---- SONGS: Play song (id=1) ----"
 auth_curl -X PUT "$API_BASE/api/Songs/play/1"
 
 # For destructive testing, uncomment:
-# echo "---- SONGS: Delete (id=1) ----"
-# auth_curl -X DELETE "$API_BASE/api/Songs/1"
-
-###########################
-# LISTENERS
-###########################
-echo "---- LISTENERS: Get all (paginated) ----"
-auth_curl "$API_BASE/api/Listeners?pageNumber=1&pageSize=10"
-
-echo "---- LISTENERS: Get by username ----"
-auth_curl "$API_BASE/api/Listeners/by-username?username=$SEED_LISTENER_USERNAME"
-
-echo "---- LISTENERS: Create ----"
-auth_curl -X POST "$API_BASE/api/Listeners" \
-  -H "Content-Type: application/json" \
-  -d "{\"name\": \"New Listener\", \"username\": \"newlisteneruser\", \"email\": \"newlistener@example.com\", \"userId\": null}"
-
-echo "---- LISTENERS: Update (id=1) ----"
-auth_curl -X PUT "$API_BASE/api/Listeners/1" \
-  -H "Content-Type: application/json" \
-  -d "{\"id\": 1, \"name\": \"Test Listener Updated\"}"
-
-echo "---- LISTENERS: Update favorite song (listenerId=1, songId=1) ----"
-auth_curl -X PUT "$API_BASE/api/Listeners/favorite-song" \
-  -H "Content-Type: application/json" \
-  -d "{\"listenerId\": 1, \"songId\": 1}"
-
-# For destructive testing, uncomment:
-# echo "---- LISTENERS: Delete (id=1) ----"
-# auth_curl -X DELETE "$API_BASE/api/Listeners/1"
+echo "---- SONGS: Delete (id=1) ----"
+auth_curl -X DELETE "$API_BASE/api/Songs/1"
 
 echo "DONE."
