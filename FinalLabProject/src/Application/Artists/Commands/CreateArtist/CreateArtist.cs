@@ -33,17 +33,10 @@ public class CreateArtistCommandHandler : IRequestHandler<CreateArtistCommand, i
 
     public async Task<int> Handle(CreateArtistCommand request, CancellationToken cancellationToken)
     {
-        try
+        if (_context.Artists.Any(a => a.Email.Value == request.Email) ||
+            _context.Listeners.Any(l => l.Email.Value == request.Email))
         {
-            if (_context.Artists.Any(a => a.Email.Value == request.Email) ||
-                _context.Listeners.Any(l => l.Email.Value == request.Email))
-            {
-                throw new UserAlreadyExistsException(request.Email, UserType.Artist);
-            }
-        }
-        catch (UserAlreadyExistsException ex)
-        {
-            throw new Exception("User with email already exists as.");
+            throw new UserAlreadyExistsException(request.Email, UserType.Artist);
         }
 
         string userId;

@@ -36,7 +36,7 @@ public class GetListenersWithPaginationQueryTests : BaseTestFixture
         result.Should().NotBeNull();
         result.Items.Should().HaveCount(5);
         result.TotalCount.Should().BeGreaterOrEqualTo(15);
-        result.PageIndex.Should().Be(2);
+        result.PageNumber.Should().Be(2);
     }
 
     [Test]
