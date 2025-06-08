@@ -104,9 +104,19 @@ public partial class Testing
     {
         try
         {
+            // Reset database
             await _database.ResetAsync();
+
+            // We're manual clearing the database for InMemory DB
+            using var scope = _scopeFactory.CreateScope();
+            var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+            context.Songs.RemoveRange(context.Songs);
+            context.Artists.RemoveRange(context.Artists);
+            context.Listeners.RemoveRange(context.Listeners);
+
+            await context.SaveChangesAsync();
         }
-        catch (Exception) 
+        catch (Exception)
         {
         }
 
