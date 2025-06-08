@@ -3,10 +3,11 @@
     <PropertyGroup>
         <RootNamespace>FinalLabProject.Application.FunctionalTests</RootNamespace>
         <AssemblyName>FinalLabProject.Application.FunctionalTests</AssemblyName>
+        <PreserveCompilationContext>true</PreserveCompilationContext>
     </PropertyGroup>
 
     <ItemGroup>
-      <None Remove="appsettings.json" />
+      <ProjectReference Include="..\..\src\WebAPI\WebAPI.csproj" />
     </ItemGroup>
 
     <ItemGroup>
@@ -30,7 +31,6 @@
         <PackageReference Include="FluentAssertions" />
         <PackageReference Include="Moq" />
         <PackageReference Include="Respawn" />
-        <PackageReference Include="Testcontainers.MsSql" />
     </ItemGroup>
 
     <ItemGroup>
