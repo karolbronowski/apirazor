@@ -1,59 +1,230 @@
 Logged in as administrator@localhost
 ---- ARTISTS: Get all (paginated) ----
+HTTP/1.1 200 OK
+Content-Type: application/json; charset=utf-8
+Date: Sun, 08 Jun 2025 11:50:59 GMT
+Server: Kestrel
+Transfer-Encoding: chunked
+X-Api-Resource: Artists
+X-Api-Operation: GetAll
+X-Api-Method: GET
+X-Api-Query-pageNumber: 1
+X-Api-Query-pageSize: 10
+
 {"items":[{"id":1,"name":"Test Artist","username":"testartist","bio":"A test artist.","payoutTier":"Bronze","email":"artist@example.com"}],"pageNumber":1,"totalPages":1,"totalCount":1,"hasPreviousPage":false,"hasNextPage":false}
 HTTP 200
 ---- ARTISTS: Get by ID (assuming id=1) ----
+HTTP/1.1 200 OK
+Content-Type: application/json; charset=utf-8
+Date: Sun, 08 Jun 2025 11:50:59 GMT
+Server: Kestrel
+Transfer-Encoding: chunked
+X-Api-Resource: Artists
+X-Api-Operation: GetById
+X-Api-Method: GET
+X-Api-Resource-Id: 1
+
 {"id":1,"name":"Test Artist","username":"testartist","bio":"A test artist.","payoutTier":"Bronze","email":"artist@example.com"}
 HTTP 200
 ---- ARTISTS: Get by name ----
+HTTP/1.1 200 OK
+Content-Type: application/json; charset=utf-8
+Date: Sun, 08 Jun 2025 11:50:59 GMT
+Server: Kestrel
+Transfer-Encoding: chunked
+X-Api-Resource: Artists
+X-Api-Operation: GetById
+X-Api-Method: GET
+X-Api-Query-name: Test Artist
+
 [{"id":1,"name":"Test Artist","username":"testartist","bio":"A test artist.","payoutTier":"Bronze","email":"artist@example.com"}]
 HTTP 200
 ---- ARTISTS: Create ----
+HTTP/1.1 200 OK
+Content-Type: application/json; charset=utf-8
+Date: Sun, 08 Jun 2025 11:51:00 GMT
+Server: Kestrel
+Transfer-Encoding: chunked
+X-Api-Resource: Artists
+X-Api-Operation: Create
+X-Api-Method: POST
+
 2
 HTTP 200
 ---- ARTISTS: Update (id=1) ----
+HTTP/1.1 204 No Content
+Date: Sun, 08 Jun 2025 11:51:00 GMT
+Server: Kestrel
+X-Api-Resource: Artists
+X-Api-Operation: Update
+X-Api-Method: PUT
+X-Api-Resource-Id: 1
+
 
 HTTP 204
 ---- ARTISTS: Update payout tier (id=1) ----
+HTTP/1.1 204 No Content
+Date: Sun, 08 Jun 2025 11:51:00 GMT
+Server: Kestrel
+X-Api-Resource: Artists
+X-Api-Operation: Update
+X-Api-Method: PUT
+
 
 HTTP 204
 ---- ARTISTS: Delete (id=1) ----
+HTTP/1.1 204 No Content
+Date: Sun, 08 Jun 2025 11:51:00 GMT
+Server: Kestrel
+X-Api-Resource: Artists
+X-Api-Operation: Delete
+X-Api-Method: DELETE
+X-Api-Resource-Id: 1
+
 
 HTTP 204
 ---- LISTENERS: Get all (paginated) ----
+HTTP/1.1 200 OK
+Content-Type: application/json; charset=utf-8
+Date: Sun, 08 Jun 2025 11:51:00 GMT
+Server: Kestrel
+Transfer-Encoding: chunked
+X-Api-Resource: Listeners
+X-Api-Operation: GetAll
+X-Api-Method: GET
+X-Api-Query-pageNumber: 1
+X-Api-Query-pageSize: 10
+
 {"items":[{"id":1,"name":"Test Listener","username":"testlistener","email":"listener@example.com"}],"pageNumber":1,"totalPages":1,"totalCount":1,"hasPreviousPage":false,"hasNextPage":false}
 HTTP 200
 ---- LISTENERS: Get by username ----
+HTTP/1.1 200 OK
+Content-Type: application/json; charset=utf-8
+Date: Sun, 08 Jun 2025 11:51:00 GMT
+Server: Kestrel
+Transfer-Encoding: chunked
+X-Api-Resource: Listeners
+X-Api-Operation: GetById
+X-Api-Method: GET
+X-Api-Query-username: testlistener
+
 {"id":1,"name":"Test Listener","username":"testlistener","email":"listener@example.com"}
 HTTP 200
 ---- LISTENERS: Create ----
+HTTP/1.1 200 OK
+Content-Type: application/json; charset=utf-8
+Date: Sun, 08 Jun 2025 11:51:00 GMT
+Server: Kestrel
+Transfer-Encoding: chunked
+X-Api-Resource: Listeners
+X-Api-Operation: Create
+X-Api-Method: POST
+
 2
 HTTP 200
 ---- LISTENERS: Update (id=1) ----
+HTTP/1.1 204 No Content
+Date: Sun, 08 Jun 2025 11:51:00 GMT
+Server: Kestrel
+X-Api-Resource: Listeners
+X-Api-Operation: Update
+X-Api-Method: PUT
+X-Api-Resource-Id: 1
+
 
 HTTP 204
 ---- LISTENERS: Update favorite song (listenerId=1, songId=1) ----
+HTTP/1.1 204 No Content
+Date: Sun, 08 Jun 2025 11:51:00 GMT
+Server: Kestrel
+X-Api-Resource: Listeners
+X-Api-Operation: Update
+X-Api-Method: PUT
+
 
 HTTP 204
 ---- LISTENERS: Delete (id=1) ----
+HTTP/1.1 204 No Content
+Date: Sun, 08 Jun 2025 11:51:00 GMT
+Server: Kestrel
+X-Api-Resource: Listeners
+X-Api-Operation: Delete
+X-Api-Method: DELETE
+X-Api-Resource-Id: 1
+
 
 HTTP 204
 ---- SONGS: Get all (paginated) ----
+HTTP/1.1 200 OK
+Content-Type: application/json; charset=utf-8
+Date: Sun, 08 Jun 2025 11:51:00 GMT
+Server: Kestrel
+Transfer-Encoding: chunked
+X-Api-Resource: Songs
+X-Api-Operation: GetAll
+X-Api-Method: GET
+X-Api-Query-pageNumber: 1
+X-Api-Query-pageSize: 10
+
 {"items":[{"id":1,"title":"Test Song","artistId":1,"listenedTimes":0}],"pageNumber":1,"totalPages":1,"totalCount":1,"hasPreviousPage":false,"hasNextPage":false}
 HTTP 200
 ---- SONGS: Get by artist (seeded artistId=1) ----
+HTTP/1.1 200 OK
+Content-Type: application/json; charset=utf-8
+Date: Sun, 08 Jun 2025 11:51:00 GMT
+Server: Kestrel
+Transfer-Encoding: chunked
+X-Api-Resource: Songs
+X-Api-Operation: GetByArtist
+X-Api-Method: GET
+X-Api-Query-artistId: 1
+X-Api-Query-pageNumber: 1
+X-Api-Query-pageSize: 10
+
 {"items":[{"id":1,"title":"Test Song","artistId":1,"listenedTimes":0}],"pageNumber":1,"totalPages":1,"totalCount":1,"hasPreviousPage":false,"hasNextPage":false}
 HTTP 200
 ---- SONGS: Create (artistId=1) ----
+HTTP/1.1 200 OK
+Content-Type: application/json; charset=utf-8
+Date: Sun, 08 Jun 2025 11:51:00 GMT
+Server: Kestrel
+Transfer-Encoding: chunked
+X-Api-Resource: Songs
+X-Api-Operation: Create
+X-Api-Method: POST
+
 2
 HTTP 200
 ---- SONGS: Update (id=1) ----
+HTTP/1.1 204 No Content
+Date: Sun, 08 Jun 2025 11:51:00 GMT
+Server: Kestrel
+X-Api-Resource: Songs
+X-Api-Operation: Update
+X-Api-Method: PUT
+X-Api-Resource-Id: 1
+
 
 HTTP 204
 ---- SONGS: Play song (id=1) ----
+HTTP/1.1 204 No Content
+Date: Sun, 08 Jun 2025 11:51:00 GMT
+Server: Kestrel
+X-Api-Resource: Songs
+X-Api-Operation: Update
+X-Api-Method: PUT
+
 
 HTTP 204
 ---- SONGS: Delete (id=1) ----
+HTTP/1.1 204 No Content
+Date: Sun, 08 Jun 2025 11:51:00 GMT
+Server: Kestrel
+X-Api-Resource: Songs
+X-Api-Operation: Delete
+X-Api-Method: DELETE
+X-Api-Resource-Id: 1
+
 
 HTTP 204
 DONE.

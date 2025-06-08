@@ -27,9 +27,10 @@ login() {
   echo "Logged in as $email"
 }
 
-# Helper for authenticated curl
+# Helper for authenticated curl that logs headers, body, and status code
 auth_curl() {
-  curl -k -s -w "\nHTTP %{http_code}\n" -H "Authorization: Bearer $TOKEN" "$@"
+  # -D - prints headers, -s silent, -w for status code, -k for insecure SSL
+  curl -k -s -D - -w "\nHTTP %{http_code}\n" -H "Authorization: Bearer $TOKEN" "$@"
 }
 
 # Use artist by seeded values
