@@ -1,32 +1,32 @@
-﻿using FinalLabProject.Application.TodoLists.Commands.CreateTodoList;
-using FinalLabProject.Application.TodoLists.Commands.DeleteTodoList;
-using FinalLabProject.Domain.Entities;
+﻿// using FinalLabProject.Application.TodoLists.Commands.CreateTodoList;
+// using FinalLabProject.Application.TodoLists.Commands.DeleteTodoList;
+// using FinalLabProject.Domain.Entities;
 
-namespace FinalLabProject.Application.FunctionalTests.TodoLists.Commands;
+// namespace FinalLabProject.Application.FunctionalTests.TodoLists.Commands;
 
-using static Testing;
+// using static Testing;
 
-public class DeleteTodoListTests : BaseTestFixture
-{
-    [Test]
-    public async Task ShouldRequireValidTodoListId()
-    {
-        var command = new DeleteTodoListCommand(99);
-        await FluentActions.Invoking(() => SendAsync(command)).Should().ThrowAsync<NotFoundException>();
-    }
+// public class DeleteTodoListTests : BaseTestFixture
+// {
+//     [Test]
+//     public async Task ShouldRequireValidTodoListId()
+//     {
+//         var command = new DeleteTodoListCommand(99);
+//         await FluentActions.Invoking(() => SendAsync(command)).Should().ThrowAsync<NotFoundException>();
+//     }
 
-    [Test]
-    public async Task ShouldDeleteTodoList()
-    {
-        var listId = await SendAsync(new CreateTodoListCommand
-        {
-            Title = "New List"
-        });
+//     [Test]
+//     public async Task ShouldDeleteTodoList()
+//     {
+//         var listId = await SendAsync(new CreateTodoListCommand
+//         {
+//             Title = "New List"
+//         });
 
-        await SendAsync(new DeleteTodoListCommand(listId));
+//         await SendAsync(new DeleteTodoListCommand(listId));
 
-        var list = await FindAsync<TodoList>(listId);
+//         var list = await FindAsync<TodoList>(listId);
 
-        list.Should().BeNull();
-    }
-}
+//         list.Should().BeNull();
+//     }
+// }

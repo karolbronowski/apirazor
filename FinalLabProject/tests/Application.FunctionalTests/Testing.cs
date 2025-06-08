@@ -21,7 +21,7 @@ public partial class Testing
     {
         _database = await TestDatabaseFactory.CreateAsync();
 
-        _factory = new CustomWebApplicationFactory(_database.GetConnection());
+        _factory = new CustomWebApplicationFactory();
 
         _scopeFactory = _factory.Services.GetRequiredService<IServiceScopeFactory>();
     }
@@ -51,22 +51,29 @@ public partial class Testing
 
     public static async Task<string> RunAsDefaultUserAsync()
     {
-        return await RunAsUserAsync("test@local", "Testing1234!", Array.Empty<string>());
+        return await RunAsUserAsync("testuserczycho", "test@local", "Testing1234!", Array.Empty<string>());
     }
 
     public static async Task<string> RunAsAdministratorAsync()
     {
-        return await RunAsUserAsync("administrator@local", "Administrator1234!", new[] { Roles.Administrator });
+        return await RunAsUserAsync("testadministrantor", "administrator@local", "Administrator1234!", new[] { Roles.Administrator });
     }
 
-    public static async Task<string> RunAsUserAsync(string userName, string password, string[] roles)
+    public static async Task<string> RunAsUserAsync(string userName, string email, string password, string[] roles)
     {
         using var scope = _scopeFactory.CreateScope();
 
         var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
 
-        var user = new ApplicationUser { UserName = userName, Email = userName };
+        var existingUser = await userManager.FindByNameAsync(userName);
+        if (existingUser != null)
+        {
+           _userId = existingUser.Id;
+           return _userId;
+        }
 
+        var user = new ApplicationUser { UserName = userName, Email = userName };
+    
         var result = await userManager.CreateAsync(user, password);
 
         if (roles.Any())
