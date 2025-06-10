@@ -20,11 +20,14 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">Admin Page</a>
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">Auth Page</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/WebAPIClient">Web API Client</a>
-                        </li>
+                        @if (!string.IsNullOrEmpty(Context.Session.GetString("AccessToken")))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/WebAPIClient">Web API Client</a>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>

@@ -2,9 +2,12 @@
 @model IndexModel
 @{
     ViewData["Title"] = "Auth page";
+    var isLoggedIn = Model.IsLoggedIn;
+    var userEmail = Model.LoggedUserEmail;
 }
 <h1>@ViewData["Title"]</h1>
-
+@if (!isLoggedIn)
+{
 <div class="btn-group mb-3" role="group">
     <button type="button" class="btn btn-outline-primary" onclick="showForm('register')">Rejestracja</button>
     <button type="button" class="btn btn-outline-secondary" onclick="showForm('login')">Logowanie</button>
@@ -69,8 +72,20 @@
         <button type="submit" class="btn btn-success">Zaloguj się</button>
     </form>
 </div>
-
-<script>
+}
+else
+{
+    <div class="alert alert-success">
+        Zalogowano jako <b>@userEmail</b>
+    </div>
+    <form method="post" asp-page-handler="Logout">
+        <button type="submit" class="btn btn-danger">Wyloguj</button>
+    </form>
+    <a class="btn btn-success" asp-area="" asp-page="/WebAPIClient">Web API Client</a>
+}
+@if(!isLoggedIn)
+{
+    <script>
     function setDefaults(type) {
         if (type === 'artist') {
             document.getElementById('name').value = "New Artist";
@@ -103,6 +118,8 @@
     }
     document.addEventListener('DOMContentLoaded', toggleArtistFields);
 </script>
+}
+
 
 @if (!string.IsNullOrEmpty(Model.ResultMessage))
 {

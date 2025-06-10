@@ -39,7 +39,7 @@ public class CreateListenerCommandHandler : IRequestHandler<CreateListenerComman
         string userId;
         if (string.IsNullOrEmpty(request.UserId))
         {
-            var (result, createdUserId) = await _identityService.CreateUserAsync(request.Username,  request.Email, request.Password!);
+            var (result, createdUserId) = await _identityService.CreateUserAsync(request.Username,  request.Email, request.Password!, UserType.Listener);
             if (!result.Succeeded)
                 throw new Exception(string.Join(", ", result.Errors));
             userId = createdUserId;

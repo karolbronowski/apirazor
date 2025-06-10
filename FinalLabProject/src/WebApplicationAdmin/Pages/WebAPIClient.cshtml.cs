@@ -27,10 +27,14 @@ namespace WebApplicationAdmin.Pages
             _webAPIconfig = webAPIconfig;
             _token = string.Empty;
         }
-        public void OnGet()
+        public IActionResult OnGet()
         {
-
-
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("AccessToken")))
+            {
+                // Przekieruj na stronę główną (logowania), jeśli nie ma tokenu w sesji
+                return RedirectToPage("/Index");
+            }
+            return Page();
         }
 
         public IActionResult OnPost()

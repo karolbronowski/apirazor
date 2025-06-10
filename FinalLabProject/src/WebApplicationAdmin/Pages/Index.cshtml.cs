@@ -15,10 +15,11 @@ namespace WebApplicationAdmin.Pages
     {
         private readonly ILogger<GrpcClientModel> _logger;
         private readonly IOptions<WebAPIConfig> _webAPIconfig;
-        private readonly string TodoListUrl = "TodoLists";
         private readonly string UsersUrl = "Users";
         private string? _token { get; set; }
         public string? ResultMessage = string.Empty;
+        public bool IsLoggedIn => !string.IsNullOrEmpty(HttpContext.Session.GetString("AccessToken"));
+        public string? LoggedUserEmail => HttpContext.Session.GetString("UserEmail");
 
         public IndexModel(ILogger<GrpcClientModel> logger, IOptions<WebAPIConfig> webAPIconfig)
         {
@@ -30,22 +31,30 @@ namespace WebApplicationAdmin.Pages
         {
             var email = Request.Form["LoginEmail"].ToString().Trim();
             var password = Request.Form["LoginPassword"].ToString().Trim();
-        
+
             var client = new RestClient($"http://{this._webAPIconfig.Value.Host}:{this._webAPIconfig.Value.Port}");
             var request = new RestRequest("api/Users/login", Method.Post);
             request.AddHeader("content-type", "application/json");
             request.AddJsonBody(new { email = email, password = password });
             var response = client.Execute<AccessTokenResponse>(request);
-        
+
             if (response.Data?.AccessToken != null)
             {
-                this.ResultMessage = $"Zalogowano użytkownika: {email}<br/>Token: {response.Data.AccessToken}";
+                this.ResultMessage = $"Zalogowano użytkownika: {email}";
+                HttpContext.Session.SetString("AccessToken", response.Data.AccessToken);
+                HttpContext.Session.SetString("UserEmail", email);
             }
             else
             {
                 this.ResultMessage = $"Błąd logowania:<br/>Status: {response.StatusCode}<br/>Treść odpowiedzi: {response.Content}";
             }
             return Page();
+        }
+
+        public IActionResult OnPostLogout()
+        {
+            HttpContext.Session.Clear();
+            return RedirectToPage();
         }
 
         public IActionResult OnPost()
@@ -116,6 +125,8 @@ namespace WebApplicationAdmin.Pages
 
             if (!string.IsNullOrEmpty(_token))
             {
+                HttpContext.Session.SetString("AccessToken", _token); // ZAPISZ TOKEN
+                HttpContext.Session.SetString("UserEmail", email);
                 if (registerType == "artist")
                     this.ResultMessage = $"Pomyślnie utworzono artystę (ID: {newId}) i zalogowano użytkownika.";
                 else
