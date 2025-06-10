@@ -5,6 +5,7 @@ using FinalLabProject.Application.Artists.Commands.DeleteArtist;
 using FinalLabProject.Application.Artists.Queries.GetArtistById;
 using FinalLabProject.Application.Artists.Queries.GetArtistByName;
 using FinalLabProject.Application.Artists.Queries.GetArtistsWithPagination;
+using FinalLabProject.Application.Artists.Queries.GetArtistByEmail;
 using FinalLabProject.Application.Artists.Queries;
 using FinalLabProject.Application.Common.Models;
 using MediatR;
@@ -25,6 +26,7 @@ public class Artists : EndpointGroupBase
         group.MapGet(GetArtistById, "{id}");
         group.MapGet(GetArtistsWithPagination);
         group.MapGet(GetArtistByName, "by-name");
+        group.MapGet(GetArtistByEmail, "by-email");
     }
 
     /// <summary>
@@ -134,5 +136,14 @@ public class Artists : EndpointGroupBase
     /// <param name="query">The query containing the artist name to search for.</param>
     /// <returns>A list of artist DTOs matching the given name.</returns>
     public async Task<List<ArtistDto>> GetArtistByName(ISender sender, [AsParameters] GetArtistByNameQuery query)
+        => await sender.Send(query);
+    
+    /// <summary>
+    /// Retrieves an artist by their email address.
+    /// </summary>
+    /// <param name="sender">The mediator sender instance.</param>
+    /// <param name="query">The query containing the artist email to search for.</param>
+    /// <returns>The artist DTO if found; otherwise, null.</returns>
+    public async Task<ArtistDto?> GetArtistByEmail(ISender sender, [AsParameters] GetArtistByEmailQuery query)
         => await sender.Send(query);
 }

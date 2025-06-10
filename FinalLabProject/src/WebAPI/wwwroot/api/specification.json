@@ -678,6 +678,44 @@
         ]
       }
     },
+    "/api/Artists/by-email": {
+      "get": {
+        "tags": [
+          "Artists"
+        ],
+        "summary": "Retrieves an artist by their email address.",
+        "operationId": "GetArtistByEmail",
+        "parameters": [
+          {
+            "name": "Email",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "nullable": true
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The artist DTO if found; otherwise, null.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ArtistDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
     "/api/Listeners": {
       "post": {
         "tags": [

@@ -137,17 +137,45 @@ public class ApplicationDbContextInitialiser
         if (!_context.Songs.Any())
         {
             var artist = _context.Artists.First();
-            var song = new Song
+            var songs = new List<Song>
             {
-                Title = "Test Song",
-                ArtistId = artist.Id,
-                ListenedTimes = 0,
-                Created = DateTimeOffset.UtcNow,
-                LastModified = DateTimeOffset.UtcNow
+                new Song
+                {
+                    Title = "Test Song",
+                    ArtistId = artist.Id,
+                    ListenedTimes = 0,
+                    Created = DateTimeOffset.UtcNow,
+                    LastModified = DateTimeOffset.UtcNow
+                },
+                new Song
+                {
+                    Title = "Second Song",
+                    ArtistId = artist.Id,
+                    ListenedTimes = 5,
+                    Created = DateTimeOffset.UtcNow,
+                    LastModified = DateTimeOffset.UtcNow
+                },
+                new Song
+                {
+                    Title = "Third Song",
+                    ArtistId = artist.Id,
+                    ListenedTimes = 2,
+                    Created = DateTimeOffset.UtcNow,
+                    LastModified = DateTimeOffset.UtcNow
+                },
+                new Song
+                {
+                    Title = "Fourth Song",
+                    ArtistId = artist.Id,
+                    ListenedTimes = 10,
+                    Created = DateTimeOffset.UtcNow,
+                    LastModified = DateTimeOffset.UtcNow
+                }
             };
-            _context.Songs.Add(song);
+            _context.Songs.AddRange(songs);
             await _context.SaveChangesAsync();
         }
+
 
         // Seed Listener user + Listener entity
         if (!_context.Listeners.Any())
