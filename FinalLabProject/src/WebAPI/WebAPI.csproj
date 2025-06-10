@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <RootNamespace>FinalLabProject.Web</RootNamespace>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <AssemblyName>FinalLabProject.Web</AssemblyName>
   </PropertyGroup>
 

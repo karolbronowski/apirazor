@@ -29,15 +29,25 @@ public class IdentityService : IIdentityService
         return user.UserName;
     }
 
-    public async Task<(Result Result, string UserId)> CreateUserAsync(string userName, string password)
+    public async Task<(Result Result, string UserId)> CreateUserAsync(string userName, string email, string password)
     {
         var user = new ApplicationUser
         {
-            UserName = userName,
-            Email = userName,
+            // user manager expected UserName to be the same as Email... it's impossible to login then, so yeah whole UserName value object proved to be complete waste of time :')
+            UserName = email,
+            Email = email,
         };
 
         var result = await _userManager.CreateAsync(user, password);
+        if (result.Succeeded)
+        {
+            user.EmailConfirmed = true;
+            await _userManager.UpdateAsync(user);
+        }
+        else
+        {
+            throw new Exception(string.Join(", ", result.Errors));
+        }
 
         return (result.ToApplicationResult(), user.Id);
     }

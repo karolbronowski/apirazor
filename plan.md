@@ -23,7 +23,7 @@
 - [x] Application (use cases, interfaces, DTOs, handlers)
 - [x] Infrastructure (Implement interfaces, DB, JWT, etc.)
 - [x] WebAPI (Controllers, endpoints, middleware)
-- [ ] Unit tests (layers)
+- [x] Unit tests (commands & queries)
 - [ ] WebApplicationAdmin (UI)
 
 ---
@@ -39,7 +39,7 @@
 - [x] Swagger/OpenAPI docs
 `Do pominięcia? nie wiem wsm co mam tutaj konfigurować nie ukrywam xd`
 - [ ] Configuration via appsettings.json/environment variables (JWT secrets, etc.)
-- [ ] Unit tests of core logic
+- [x] Unit tests of core logic
 - [x] cURL script to test API endpoints
 
 ---

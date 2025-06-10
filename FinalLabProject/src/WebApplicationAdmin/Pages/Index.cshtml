@@ -1,10 +1,110 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Admin Panel";
+    ViewData["Title"] = "Auth page";
 }
+<h1>@ViewData["Title"]</h1>
 
-<div class="text-center">
-    <h1 class="display-4">@ViewData["Title"]</h1>
-    <p>Tutaj powinien znaleźć się panel logowania oraz moduł przyznawania dostępów do web API - użytkownicy, role systemowe itp.</p>
+<div class="btn-group mb-3" role="group">
+    <button type="button" class="btn btn-outline-primary" onclick="showForm('register')">Rejestracja</button>
+    <button type="button" class="btn btn-outline-secondary" onclick="showForm('login')">Logowanie</button>
 </div>
+<div id="registerForm">
+    <p id="registerFormTitle">Stwórz nowego słuchacza lub artystę i automatycznie użytkownika:</p>
+    <form method="post">
+        <div class="form-group">
+            <label for="registerType">Typ rejestracji</label>
+            <select class="form-control" id="registerType" name="RegisterType" onchange="toggleArtistFields()">
+                <option value="listener">Słuchacz</option>
+                <option value="artist">Artysta</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="name">Imię i nazwisko</label>
+            <input type="text" class="form-control" id="name" name="Name" required value="New Listener" />
+        </div>
+        <div class="form-group">
+            <label for="username">Nazwa użytkownika</label>
+            <input type="text" class="form-control" id="username" name="Username" required value="newlisteneruser" />
+        </div>
+        <div class="form-group">
+            <label for="email">E-mail</label>
+            <input type="email" class="form-control" id="email" name="Email" required value="newlisteneruser@example.com" />
+        </div>
+        <div class="form-group">
+            <label for="password">Hasło</label>
+            <input type="password" class="form-control" id="password" name="Password" required value="ListenerTest123!" />
+        </div>
+        <div id="artistFields" style="display:none;">
+            <div class="form-group">
+                <label for="bio">Bio</label>
+                <input type="text" class="form-control" id="bio" name="Bio" value="Opis artysty" />
+            </div>
+            <div class="form-group">
+                <label for="payoutTier">Payout Tier</label>
+                <select class="form-control" id="payoutTier" name="PayoutTier">
+                    <option value="Bronze">Bronze</option>
+                    <option value="Silver">Silver</option>
+                    <option value="Gold">Gold</option>
+                </select>
+            </div>
+        </div>
+        <br />
+        <button type="submit" class="btn btn-primary">Utwórz użytkownika i pobierz dane</button>
+    </form>
+</div>
+
+<div id="loginForm" style="display:none;">
+    <p>Zaloguj się <span id="loginFormSuffix"></span></p>
+    <form method="post" asp-page-handler="Login">
+        <div class="form-group">
+            <label for="loginEmail">E-mail</label>
+            <input type="email" class="form-control" id="loginEmail" name="LoginEmail" required value="newlisteneruser@example.com" />
+        </div>
+        <div class="form-group">
+            <label for="loginPassword">Hasło</label>
+            <input type="password" class="form-control" id="loginPassword" name="LoginPassword" required value="ListenerTest123!" />
+        </div>
+        <br />
+        <button type="submit" class="btn btn-success">Zaloguj się</button>
+    </form>
+</div>
+
+<script>
+    function setDefaults(type) {
+        if (type === 'artist') {
+            document.getElementById('name').value = "New Artist";
+            document.getElementById('username').value = "newartistuser";
+            document.getElementById('email').value = "newartist@example.com";
+            document.getElementById('password').value = "ArtistTest123!";
+            document.getElementById('bio').value = "Opis artysty";
+            document.getElementById('payoutTier').value = "Bronze";
+        } else {
+            document.getElementById('name').value = "New Listener";
+            document.getElementById('username').value = "newlisteneruser";
+            document.getElementById('email').value = "newlisteneruser@example.com";
+            document.getElementById('password').value = "ListenerTest123!";
+            // Optionally clear artist-only fields
+            document.getElementById('bio').value = "";
+            document.getElementById('payoutTier').value = "Bronze";
+        }
+    }
+
+    function toggleArtistFields() {
+        var type = document.getElementById('registerType').value;
+        document.getElementById('artistFields').style.display = (type === 'artist') ? 'block' : 'none';
+        document.getElementById('registerFormTitle').innerText = (type === 'artist') ? 'Zarejestruj się artysto!:' : 'Zarejestruj się słuchaczu!:';
+        setDefaults(type);
+    }
+
+    function showForm(formType) {
+        document.getElementById('registerForm').style.display = (formType === 'register') ? 'block' : 'none';
+        document.getElementById('loginForm').style.display = (formType === 'login') ? 'block' : 'none';
+    }
+    document.addEventListener('DOMContentLoaded', toggleArtistFields);
+</script>
+
+@if (!string.IsNullOrEmpty(Model.ResultMessage))
+{
+    <div class="alert alert-info mt-3">@Model.ResultMessage</div>
+}
