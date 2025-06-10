@@ -50,8 +50,7 @@
 - [ ] Artist list/add/edit/delete (only matching ID or admin)
 - [ ] User list/add/edit/delete (admin only)
 - [ ] Role-based access (admin, listener, artist)
-- [ ] Login page (JWT-based)
+- [x] Login page (JWT-based)
 - [ ] Integrate with REST API
-- [ ] UI polish (optional)
 
 ---
