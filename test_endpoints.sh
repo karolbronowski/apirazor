@@ -3,7 +3,7 @@
 # Uses seeded test accounts and entities as per initializer context.
 # Requires: curl, jq
 
-API_BASE="https://localhost:5001"  # Change PORT if needed
+API_BASE="http://localhost:5001"  # Change PORT if needed
 
 # Test users from seeder
 ADMIN_EMAIL="administrator@localhost"

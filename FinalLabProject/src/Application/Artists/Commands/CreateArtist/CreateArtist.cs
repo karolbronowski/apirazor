@@ -43,7 +43,7 @@ public class CreateArtistCommandHandler : IRequestHandler<CreateArtistCommand, i
         if (string.IsNullOrEmpty(request.UserId))
         {
             // Create a new user via the identity service
-            var (result, createdUserId) = await _identityService.CreateUserAsync(request.Username, request.Password!);
+            var (result, createdUserId) = await _identityService.CreateUserAsync(request.Username, request.Email, request.Password!, UserType.Artist);
             if (!result.Succeeded)
                 throw new Exception(string.Join(", ", result.Errors));
             userId = createdUserId;

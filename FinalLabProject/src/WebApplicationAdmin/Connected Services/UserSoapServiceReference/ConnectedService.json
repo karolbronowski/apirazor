@@ -1,7 +1,7 @@
 {
   "ExtendedData": {
     "inputs": [
-      "https://localhost:7045/UserService.asmx"
+      "http://localhost:7045/UserService.asmx"
     ],
     "collectionTypes": [
       "System.Array",

@@ -182,7 +182,7 @@ namespace UserSoapServiceReference
         {
             if ((endpointConfiguration == EndpointConfiguration.BasicHttpBinding_IUserService))
             {
-                return new System.ServiceModel.EndpointAddress("https://localhost:7045/UserService.asmx");
+                return new System.ServiceModel.EndpointAddress("http://localhost:7045/UserService.asmx");
             }
             throw new System.InvalidOperationException(string.Format("Could not find endpoint with name \'{0}\'.", endpointConfiguration));
         }
